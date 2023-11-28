@@ -1,4 +1,4 @@
-const { error } = require('console')
+const { resolve } = require('path')
 
 console.log('one')
 console.log('two')
@@ -85,33 +85,47 @@ newPromise.then((result) => console.log(result))
 // каждая из них меняет значение в setTimeout()
 // два таймаута рядом
 
+// убираем
+// finally в конце концов / наконец-то КОНЕЦ
+// блок независимый который сам по себе
+// finally будет выполняться в любом случае независимо от результата
+// манипуляция с DOM  деревом
+// спиннер загрузки, нам спиннер надо убрать
+
+// потребителя который изменяет  result
+// catch всегда пишется в конце цепочки
+
+// finally
+
+// Promise.all() - ждем результат от всех промисов
+// принимает в качестве аргумента - массив промисов
+// возвращает массив
+// порядок остается прежним
+// если один из промисов будет с ошибкой - то all завершится с ошибкой
+
+// написать промис который вернуть через полсекунды результат success - успешное выполнение
+// resolve ==> меняют значение промиса
+
+Promise.all([firstPromise, secondPromise, prom1])
+  .then((result) => console.log(result))
+  .catch((error) => console.log(error))
+
 const prom1 = new Promise((resolve, reject) => {
+  // запускаем спиннер
   if (Math.random() > 0.5) {
     setTimeout(() => resolve('success'), 1000)
   } else {
     setTimeout(() => reject('error'), 1000)
   }
 })
-prom1.then((result) => console.log(result)).catch((error) => console.log(error))
-// потребителя который изменяет  result
-// catch всегда пишется в конце цепочки
 
-// then
-
-console.log(Math.random() > 0.5)
-console.log(Math.random() > 0.5)
-console.log(Math.random() > 0.5)
-
-// c setTimeout
-console.log('start') // синхронно
-
-setTimeout(() => {
-  console.log('setTimeout') // макротаска --> самая последняя
-})
-
-//Promise.resolve() = вызов
-Promise.resolve().then(() => {
-  console.log('resolve') // результат выполнения промисса! --> микротаскаа
-})
-
-console.log('end')
+const firstPromise = new Promise((resolve) => setTimeout(() => resolve('success500'), 0))
+const secondPromise = new Promise((resolve, reject) => reject(2))
+// выводит первый выполненный (или успешно или отрицательно)
+Promise.race([firstPromise, secondPromise])
+  .then((result) => console.log('race', result))
+  .catch((error) => console.log('error', error))
+// первый УСПЕШНЫЙ результат
+Promise.any([firstPromise, secondPromise])
+  .then((result) => console.log('any', result))
+  .catch((error) => console.log('error', error))
