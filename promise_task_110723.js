@@ -10,6 +10,7 @@ const fn1 = () => {
 }
 
 console.log('end')
+// start 1 end
 
 // 1.2 Какой результат выполнения этого кода?
 
@@ -25,7 +26,7 @@ promise12.then((response) => {
 })
 
 console.log('end')
-
+// start 1 end 200
 // 1.3 Какой результат выполнения этого кода?
 
 console.log('start')
@@ -35,10 +36,11 @@ const promise13 = new Promise((resolve, reject) => {
 })
 
 promise13.then((res) => {
-  console.log(2)
+  console.log(2) // функция без resolve не отработает
 })
 
 console.log('end')
+// start 1 end
 
 // 1.4 Какой результат выполнения этого кода?
 
@@ -53,6 +55,7 @@ Promise.resolve().then(() => {
 })
 
 console.log('end')
+// start end resolve setTimeout
 
 // 1.5
 
@@ -65,6 +68,7 @@ function job() {
 }
 
 job().then((data) => console.log(data))
+// hello world через 2 секунды
 
 // 1.6
 
@@ -93,6 +97,7 @@ job(2)
   .catch((error) => console.log('rejected: ' + error))
 
 job(3).then((data) => console.log(data))
+// error odd rejected
 
 // 1.7
 console.log('start')
@@ -109,6 +114,7 @@ promise1.then((res) => {
 })
 
 console.log('end')
+// start 1 3 end 200
 
 //1.8
 console.log('start')
@@ -126,6 +132,7 @@ fn().then((res) => {
 })
 
 console.log('end')
+// start middle 1 end success
 
 //1.9
 const promise = new Promise((resolve, reject) => {
@@ -145,6 +152,7 @@ promise.then((res) => {
 })
 
 console.log(4)
+// 1 2 4 timeStart timerEnd success
 
 //1.10
 console.log(1)
@@ -160,6 +168,7 @@ Promise.resolve().then(() => console.log(5))
 setTimeout(() => console.log(6))
 
 console.log(7)
+// 1 7 3 5 2 6 4
 
 // 1.11
 let promise1111 = new Promise(function (resolve, reject) {
@@ -168,4 +177,5 @@ let promise1111 = new Promise(function (resolve, reject) {
   setTimeout(() => resolve(2), 1000)
 })
 
-promise.then((data) => console.log(data))
+promise1111.then((data) => console.log(data))
+// 1
