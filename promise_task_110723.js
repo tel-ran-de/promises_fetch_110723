@@ -33,6 +33,8 @@ console.log('start')
 
 const promise13 = new Promise((resolve, reject) => {
   console.log(1)
+  // resolve -> value
+  // reject--> error
 })
 
 promise13.then((res) => {
@@ -161,7 +163,7 @@ setTimeout(() => console.log(2))
 
 Promise.resolve().then(() => console.log(3))
 
-Promise.resolve().then(() => setTimeout(() => console.log(4)))
+Promise.resolve().then(() => setTimeout(() => console.log(4))) // она уходит в очередь самая последняя
 
 Promise.resolve().then(() => console.log(5))
 
@@ -179,3 +181,7 @@ let promise1111 = new Promise(function (resolve, reject) {
 
 promise1111.then((data) => console.log(data))
 // 1
+
+const sum = (a, b) => a + b
+const arr = [1, 2]
+arr.forEach((el) => console.log(el))
