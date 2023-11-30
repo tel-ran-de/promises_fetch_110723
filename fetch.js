@@ -1,7 +1,7 @@
 const fetchProduct = (id, callback) =>
   fetch(`https://dummyjson.com/products/${id}`)
-    .then((response) => response.json()) // из строчного варианта получить объект
-    .then((data) => callback(data))
+    .then((response) => response.json()) // из строчного варианта JSON получить обычный объект
+    .then((data) => callback(data)) // с нашими данными что-то сделаем
     .catch((err) => console.log(err, 'this product doesnot exist'))
 
 const showProduct = (productData) => {
@@ -21,7 +21,7 @@ const showProduct = (productData) => {
   const image = document.createElement('img')
   image.src = productData.images[0]
 
-  productContainer.append(productTitle, description, price, image)
+  productContainer.append(productTitle, description, price, image) // закрепляем
 }
 
 fetchProduct(30, (product) => showProduct(product))
