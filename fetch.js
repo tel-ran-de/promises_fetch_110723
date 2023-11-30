@@ -1,17 +1,40 @@
-const fetchProduct = (callback) =>
-  fetch('https://dummyjson.com/products/1')
+const fetchProduct = (id, callback) =>
+  fetch(`https://dummyjson.com/products/${id}`)
     .then((response) => response.json()) // из строчного варианта получить объект
-    .then((data) => {
-      console.log(data)
-      callback(data)
-    })
+    .then((data) => callback(data))
+    .catch((err) => console.log(err, 'this product doesnot exist'))
 
 const showProduct = (productData) => {
   const productContainer = document.createElement('div')
   document.body.append(productContainer)
+
   const productTitle = document.createElement('h1')
   productTitle.innerText = productData.title
-  productContainer.append(productTitle)
+
+  const description = document.createElement('p')
+  description.innerText = productData.description
+
+  // выводим цену
+  const price = document.createElement('p')
+  price.innerText = `Price: ${productData.price}$`
+  // выводим картинку
+  const image = document.createElement('img')
+  image.src = productData.images[0]
+
+  productContainer.append(productTitle, description, price, image)
 }
 
-fetchProduct((product) => showProduct(product))
+fetchProduct(30, (product) => showProduct(product))
+
+// возвращает промис
+const fetchAnotherProduct = (id) =>
+  fetch(`https://dummyjson.com/products/${id}`).then((response) => response.json())
+
+// промис ол принимает два вызова функции с разными id
+// обработать ответ и вывести данные в браузере
+Promise.all([fetchAnotherProduct(3), fetchAnotherProduct(5)]).then((result) => {
+  // result массив с ответами промисов
+  console.log(result)
+  showProduct(result[0]) // к первому элемента массива
+  showProduct(result[1]) // ко второму элементу массива
+})
