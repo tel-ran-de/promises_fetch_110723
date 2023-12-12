@@ -40,12 +40,12 @@ const getUserAndPosts = async (userId) => {
     if (!postResponse.ok) {
       console.log('no posts found for user')
     }
-    const userData = await userResponse.json()
-    const postData = await postResponse.json()
+    const { firstName, email } = await userResponse.json()
+    const { posts } = await postResponse.json()
 
     const nextUserButton = document.getElementById('next-user-button')
     nextUserButton.disabled = false
-    showUserAndPosts(userData.firstName, userData.email, postData.posts)
+    showUserAndPosts(firstName, email, posts)
   } catch (error) {
     userContainer.innerHTML = `<h1>${error.message}</h1>`
     const nextUserButton = document.getElementById('next-user-button')
